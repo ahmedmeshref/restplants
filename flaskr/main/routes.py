@@ -1,4 +1,4 @@
-from flask import jsonify, Blueprint, redirect, url_for
+from flask import jsonify, Blueprint, redirect, url_for, request
 from flask_cors import CORS
 from flaskr.models import db, Plant
 
@@ -27,9 +27,15 @@ def home():
 @main.route("/plants")
 def get_plants():
     error = False
+    # page is part of the get request to specific the pagination page
+    page = request.args.get('page', 1, type=int)
     try:
+        # display 5 element in per page
+        start = (page - 1) * 5
+        end = start + 5
         plants = db.session.query(Plant).all()
-        formatted_plants = [plant.format() for plant in plants]
+        total_plant = len(plants)
+        formatted_plants = [plant.format() for plant in plants[start:end]]
     except:
         error = False
     finally:
@@ -41,5 +47,6 @@ def get_plants():
     else:
         return jsonify({
             'success': True,
-            'Plants': formatted_plants
+            'Plants': formatted_plants,
+            'total_plants': total_plant
         })
