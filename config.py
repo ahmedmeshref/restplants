@@ -4,9 +4,9 @@ import os
 class Config(object):
     SECRET_KEY = os.environ.get('SECRETKEY')
     DEBUG = True
-    ENV = 'D'
+    ENV = 'development'
     TESTING = False
-    DATABASE_URI = os.environ.get('POSTGRESQL') + "plants"
+    SQLALCHEMY_DATABASE_URI = os.environ.get('POSTGRESQL') + 'plants'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = True
 
