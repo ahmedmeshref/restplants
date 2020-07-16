@@ -1,5 +1,6 @@
-from flask import Flask, jsonify
+from flask import Flask
 from config import Config
+from .models import db
 
 
 # main application factory
@@ -8,8 +9,6 @@ def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     # default configuration
     app.config.from_object(Config)
-
-    from .models import db
 
     if test_config is None:
         # load the instance config, if it exists, when not testing. OVERRIDE the existing configuration
@@ -23,7 +22,9 @@ def create_app(test_config=None):
         db.init_app(app)
 
         # register routes and/or blueprints
-        from . import views
-        app.register_blueprint(views.main)
+        from .main import routes
+        from .errors import error_handler
+        app.register_blueprint(routes.main)
+        app.register_blueprint(error_handler.errors)
 
     return app
