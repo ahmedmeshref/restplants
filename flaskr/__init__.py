@@ -1,7 +1,6 @@
 from flask import Flask
-from flask_migrate import Migrate
 from config import Config
-from .models import db, Plant
+from .models import setup_db
 
 
 # main application factory
@@ -19,9 +18,8 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     with app.app_context():
-        # Initialize Plugins
-        db.init_app(app)
-        migrate = Migrate(app, db)
+        # setup db for app
+        setup_db(app)
 
         # register routes and/or blueprints
         from .main import routes

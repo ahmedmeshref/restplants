@@ -1,6 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
+
+
+def setup_db(app):
+    db.app = app
+    db.init_app(app)
+    Migrate(app, db)
 
 
 class Plant(db.Model):
@@ -17,6 +24,9 @@ class Plant(db.Model):
         self.scientific_name = scientific_name
         self.is_poisonous = is_poisonous
         self.primary_color = primary_color
+
+    def __repr__(self):
+        return f"<Plant id: {self.id}, name: {self.name}>"
 
     def insert(self):
         db.session.add(self)
