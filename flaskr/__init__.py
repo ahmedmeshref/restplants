@@ -6,12 +6,10 @@ from config import Config
 def create_app(test_config=None):
     # instance_relative_config=True tells the app that configuration files are relative to the instance folder.
     app = Flask(__name__, instance_relative_config=True)
+    # default configuration
     app.config.from_object(Config)
 
-    # Initialize Plugins, Setting plugins as global variables outside of create_app() makes them globally accessible
-    # to other parts of our application
-    from flaskr.models import db
-    db.init_app(app)
+    from .models import db
 
     if test_config is None:
         # load the instance config, if it exists, when not testing. OVERRIDE the existing configuration
@@ -21,7 +19,11 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
 
     with app.app_context():
+        # Initialize Plugins
+        db.init_app(app)
+
         # register routes and/or blueprints
-        from flaskr import routes
+        from . import views
+        app.register_blueprint(views.main)
 
     return app
