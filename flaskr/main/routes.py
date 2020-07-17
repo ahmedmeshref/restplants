@@ -1,4 +1,4 @@
-from flask import jsonify, Blueprint, redirect, url_for, request
+from flask import jsonify, Blueprint, redirect, url_for, request, abort
 from flask_cors import CORS
 from flaskr.models import db, Plant
 
@@ -23,19 +23,27 @@ def home():
     return jsonify({"message": "Hello world"})
 
 
+def pagination(request, selection):
+    plants_per_page = 5
+    # page is part of the get request to specific the pagination page
+    page = request.args.get('page', 1, type=int)
+    # display 5 element in per page
+    start = (page - 1) * plants_per_page
+    end = start + plants_per_page
+    formatted_plants = [plant.format() for plant in selection[start:end]]
+    return formatted_plants
+
+
 # get all plants
 @main.route("/plants")
 def get_plants():
     error = False
-    # page is part of the get request to specific the pagination page
-    page = request.args.get('page', 1, type=int)
     try:
-        # display 5 element in per page
-        start = (page - 1) * 5
-        end = start + 5
         plants = db.session.query(Plant).all()
         total_plant = len(plants)
-        formatted_plants = [plant.format() for plant in plants[start:end]]
+        formatted_plants = pagination(request, plants)
+        if not formatted_plants:
+            abort(404)
     except:
         error = False
     finally:
@@ -50,3 +58,13 @@ def get_plants():
             'Plants': formatted_plants,
             'total_plants': total_plant
         })
+
+
+@main.route("/plants/<int:plant_id>")
+def get_specific_plant(plant_id):
+    plant = db.session.query(Plant).get_or_404(plant_id)
+
+    return jsonify({
+        'success': True,
+        'Plant': plant.format()
+    })
