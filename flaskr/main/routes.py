@@ -49,9 +49,7 @@ def get_plants():
     finally:
         db.session.close()
     if error:
-        return jsonify({
-            'success': True
-        })
+        abort(500)
     else:
         return jsonify({
             'success': True,
@@ -68,3 +66,61 @@ def get_specific_plant(plant_id):
         'success': True,
         'Plant': plant.format()
     })
+
+
+def set_attributes(ins, msg):
+    if not msg:
+        return False
+    for key, val in msg.items():
+        setattr(ins, key, val)
+    return True
+
+
+@main.route("/plants/<int:plant_id>", methods=["PATCH"])
+def update_plant(plant_id):
+    plant = db.session.query(Plant).get_or_404(plant_id)
+    body = request.get_json()
+    error = False
+
+    try:
+        set_attributes(plant, body)
+        plant.update()
+        p_name = plant.name
+    except:
+        error = True
+        db.session.rollback()
+    finally:
+        db.session.close()
+
+    if error:
+        abort(500)
+    else:
+        return jsonify({
+            'success': True,
+            'id': plant_id,
+            'name': p_name
+        })
+
+
+@main.route("/plants/<int:plant_id>", methods=["DELETE"])
+def delete_plant(plant_id):
+    plant = db.session.query(Plant).get_or_404(plant_id)
+    error = True
+
+    try:
+        plant.delete()
+    except:
+        error = False
+        db.session.rollback()
+    finally:
+        db.session.close()
+
+    if error:
+        abort(500)
+    else:
+        return jsonify({
+            'success': True,
+            'id': plant_id
+        })
+
+
