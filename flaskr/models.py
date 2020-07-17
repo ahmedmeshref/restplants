@@ -15,7 +15,7 @@ class Plant(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
-    scientific_name = db.Column(db.String(), nullable=False, unique=True)
+    scientific_name = db.Column(db.String(), nullable=False)
     is_poisonous = db.Column(db.Boolean, nullable=False)
     primary_color = db.Column(db.String(), nullable=False)
 
