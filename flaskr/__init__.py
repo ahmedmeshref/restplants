@@ -1,21 +1,14 @@
 from flask import Flask
-from config import Config
+from config import config_by_name
 from .models import setup_db
 
 
 # main application factory
-def create_app(test_config=None):
+def create_app(config_name):
     # instance_relative_config=True tells the app that configuration files are relative to the instance folder.
     app = Flask(__name__, instance_relative_config=True)
-    # default configuration
-    app.config.from_object(Config)
-
-    if test_config is None:
-        # load the instance config, if it exists, when not testing. OVERRIDE the existing configuration
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        # load the test config if passed in
-        app.config.from_object(test_config)
+    # load giving configuration name
+    app.config.from_object(config_by_name[config_name])
 
     with app.app_context():
         # setup db for app

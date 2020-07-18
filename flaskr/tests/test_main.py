@@ -3,6 +3,7 @@ import unittest
 
 from config import TestingConfig
 from flaskr import create_app
+from flaskr.models import setup_db
 
 
 class PlantTest(unittest.TestCase):
@@ -10,6 +11,9 @@ class PlantTest(unittest.TestCase):
         """Define test variables and initialize app."""
         self.app = create_app(TestingConfig)
         self.client = self.app.test_client
+        with self.app.app_context():
+            # setup db for app
+            setup_db(self.app)
 
     def tearDown(self):
         """Executed after reach test to close any opened thing"""

@@ -7,14 +7,27 @@ class Config(object):
     TESTING = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('POSTGRESQL') + 'plants'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+
+class DevelopmentConfig(Config):
+    SECRET_KEY = 'development'
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('POSTGRESQL') + 'plants'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = True
 
 
 # class ProductionConfig(Config):
 #     DATABASE_URI = 'mysql://user@localhost/foo'
 
-# class DevelopmentConfig(Config):
-#     DATABASE_URI = 'mysql://user@localhost/foo'
-
 class TestingConfig(Config):
+    SECRET_KEY = 'testmyplantapp'
+    DEBUG = True
     TESTING = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('POSTGRESQL') + 'plants'
+
+
+config_by_name = {
+    'development': DevelopmentConfig,
+    'testing': TestingConfig
+}
