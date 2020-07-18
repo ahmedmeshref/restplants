@@ -15,7 +15,7 @@ def create_app(test_config=None):
         app.config.from_pyfile('config.py', silent=True)
     else:
         # load the test config if passed in
-        app.config.from_mapping(test_config)
+        app.config.from_object(test_config)
 
     with app.app_context():
         # setup db for app

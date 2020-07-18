@@ -9,11 +9,12 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = True
 
+
 # class ProductionConfig(Config):
 #     DATABASE_URI = 'mysql://user@localhost/foo'
 
 # class DevelopmentConfig(Config):
 #     DATABASE_URI = 'mysql://user@localhost/foo'
 
-# class TestingConfig(Config):
-#     TESTING = True
+class TestingConfig(Config):
+    TESTING = True
