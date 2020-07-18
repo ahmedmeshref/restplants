@@ -24,7 +24,7 @@ class TestingConfig(Config):
     SECRET_KEY = 'testmyplantapp'
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('POSTGRESQL') + 'plants'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('POSTGRESQL') + 'plantsTesting'
 
 
 config_by_name = {

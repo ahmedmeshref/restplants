@@ -30,7 +30,7 @@ def get_plants():
     error = False
     try:
         formatted_plants, current_page, total_plants = plants_info(request)
-    except:
+    except Exception:
         error = False
     finally:
         db.session.close()
@@ -69,7 +69,7 @@ def create_plant():
         plant_id = plant.id
         # get plants info
         formatted_plants, current_page, total_plants = plants_info(request)
-    except:
+    except Exception:
         error = True
         db.session.rollback()
     finally:
@@ -97,7 +97,7 @@ def update_plant(plant_id):
         set_attributes(plant, body)
         plant.update()
         p_name = plant.name
-    except:
+    except Exception:
         error = True
         db.session.rollback()
     finally:
@@ -122,7 +122,7 @@ def delete_plant(plant_id):
         # delete plant
         plant.delete()
         remaining_plants, current_page, total_plants = plants_info(request)
-    except:
+    except Exception:
         error = True
         db.session.rollback()
     finally:

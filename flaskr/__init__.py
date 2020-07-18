@@ -4,7 +4,7 @@ from .models import setup_db
 
 
 # main application factory
-def create_app(config_name):
+def create_app(config_name='development'):
     # instance_relative_config=True tells the app that configuration files are relative to the instance folder.
     app = Flask(__name__, instance_relative_config=True)
     # load giving configuration name
