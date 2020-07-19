@@ -1,9 +1,9 @@
 from flaskr.models import db, Plant
 from flask import abort
 
+plants_per_page = 5
 
 def pagination(request, selection):
-    plants_per_page = 5
     # page is part of the get request to specific the pagination page
     page = request.args.get('page', 1, type=int)
     # display plants_per_page element in per page

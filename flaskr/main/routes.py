@@ -54,7 +54,7 @@ def get_specific_plant(plant_id):
 
     return jsonify({
         'success': True,
-        'Plant': plant.format()
+        'plant': plant.format()
     })
 
 
