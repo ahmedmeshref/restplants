@@ -27,7 +27,7 @@ class PlantTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_get_plants(self):
-        response = self.client.get("/plants")
+        response = self.client.get("/plants/1")
         self.assertEqual(response.status_code, 404)
 
 
