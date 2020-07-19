@@ -9,7 +9,7 @@ def not_found(error):
     return jsonify({
         'success': False,
         'error': 404,
-        'message': 'Page not found! once I am initialized, will let you know. Stay awesome!'
+        'message': 'Resource not found!'
     }), 404
 
 
@@ -18,7 +18,7 @@ def not_allowed(error):
     return jsonify({
         'success': False,
         'error': 405,
-        'message': "Page not allowed! once I am initialized, will let you know. Stay awesome!"
+        'message': "Not allowed!"
     }), 405
 
 
@@ -27,7 +27,7 @@ def unprocessable(error):
     return jsonify({
         'success': False,
         'error': 422,
-        'message': "Unprocessable request! please review your request body and format. Stay awesome!"
+        'message': "Unprocessable request!"
     }), 422
 
 
@@ -36,5 +36,5 @@ def server_damage(error):
     return jsonify({
         'success': False,
         'error': 500,
-        'message': "Internal server error! try to send your request again. Stay awesome!"
+        'message': "Internal server error!"
     }), 500

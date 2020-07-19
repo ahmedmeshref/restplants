@@ -68,7 +68,7 @@ def create_plant():
         plant.insert()
         plant_id = plant.id
         # get plants info
-        formatted_plants, current_page, total_plants = plants_info(request)
+        formatted_plants, current_page_number, total_plants = plants_info(request)
     except Exception:
         error = True
         db.session.rollback()
@@ -82,7 +82,7 @@ def create_plant():
             "success": True,
             "new_plant_id": plant_id,
             'plants': formatted_plants,
-            'current_page': current_page,
+            'current_page_number': current_page_number,
             'number_of_plants': total_plants
         })
 
