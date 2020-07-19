@@ -2,7 +2,7 @@ import json
 import unittest
 
 from flaskr import create_app
-from flaskr.models import setup_db, db
+from flaskr.models import setup_db, db, Plant
 
 
 class PlantTest(unittest.TestCase):
@@ -61,6 +61,32 @@ class PlantTest(unittest.TestCase):
 
     def test_405_if_plant_creation_not_allowed(self):
         response = self.client.post("/plants/5", json={'name': 'Snake Plant'})
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 405)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data['message'], 'Not Allowed')
+
+    def test_update_plant(self):
+        response = self.client.patch("/plants/4", json={'primary_color': 'Red'})
+        data = json.loads(response.data)
+
+        get_response = self.client.get("/plants/4")
+        updated_plant = json.loads(get_response.data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data["success"], True)
+        self.assertEqual(data["id"], 4)
+        self.assertEqual(updated_plant['Plant']['primary_color'], 'Red')
+
+    def test_400_bad_request_if_update_body_empty(self):
+        response = self.client.patch("/plants/4")
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data['message'], 'Bad Request')
+
+    def test_405_if_plant_updating_not_allowed(self):
+        response = self.client.patch("/plants", json={'name': 'Snake Plant'})
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 405)
         self.assertEqual(data["success"], False)

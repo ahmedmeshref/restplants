@@ -94,7 +94,6 @@ def update_plant(plant_id):
     set_attributes(plant, body)
     try:
         plant.update()
-        p_name = plant.name
     except Exception:
         error = True
         db.session.rollback()
@@ -107,7 +106,6 @@ def update_plant(plant_id):
         return jsonify({
             'success': True,
             'id': plant_id,
-            'name': p_name
         })
 
 
