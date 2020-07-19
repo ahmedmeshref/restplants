@@ -46,4 +46,4 @@ def bad_request(error):
         'success': False,
         'error': 400,
         'message': 'Bad Request'
-    })
+    }), 400

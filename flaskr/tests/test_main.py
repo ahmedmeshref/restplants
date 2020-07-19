@@ -40,7 +40,7 @@ class PlantTest(unittest.TestCase):
         self.assertEqual(data['success'], False)
         self.assertEqual(data['message'], 'Resource Not Found')
 
-    def test_add_plant(self):
+    def test_create_plant(self):
         response = self.client.post("/plants",
                                     json={'name': 'Snake Plant', 'scientific_name': 'Snake', 'is_poisonous': True,
                                           'primary_color': 'red'})
@@ -51,6 +51,20 @@ class PlantTest(unittest.TestCase):
         self.assertTrue(len(data["plants"]))
         self.assertTrue(data["new_plant_id"])
         self.assertTrue(data["current_page_number"])
+
+    def test_400_bad_request_on_empty_body(self):
+        response = self.client.post("/plants")
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data['message'], 'Bad Request')
+
+    def test_405_if_plant_creation_not_allowed(self):
+        response = self.client.post("/plants/5", json={'name': 'Snake Plant'})
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 405)
+        self.assertEqual(data["success"], False)
+        self.assertEqual(data['message'], 'Not Allowed')
 
 
 # Make the tests conveniently executable
