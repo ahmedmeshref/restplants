@@ -1,4 +1,5 @@
 from flaskr.models import db, Plant
+from flask import abort
 
 
 def pagination(request, selection):
@@ -14,7 +15,7 @@ def pagination(request, selection):
 
 def set_attributes(ins, msg):
     if not msg:
-        return False
+        return abort(400)
     for key, val in msg.items():
         setattr(ins, key, val or 'not_specified')
     return True
@@ -24,6 +25,8 @@ def create_new_plant(body):
     """
     create_new_plant takes in the request body and return a newly created plant
     """
+    if not body:
+        abort(400)
     new_plant = Plant()
     # get data
     attr = {

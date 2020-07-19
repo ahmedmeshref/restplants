@@ -61,10 +61,9 @@ def get_specific_plant(plant_id):
 @main.route("/plants", methods=["POST"])
 def create_plant():
     error = False
-
+    body = request.get_json()
+    plant = create_new_plant(body)
     try:
-        body = request.get_json()
-        plant = create_new_plant(body)
         plant.insert()
         plant_id = plant.id
         # get plants info
@@ -91,10 +90,9 @@ def create_plant():
 def update_plant(plant_id):
     plant = get_plant_or_404(plant_id)
     error = False
-
+    body = request.get_json()
+    set_attributes(plant, body)
     try:
-        body = request.get_json()
-        set_attributes(plant, body)
         plant.update()
         p_name = plant.name
     except Exception:

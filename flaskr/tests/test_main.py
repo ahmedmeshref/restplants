@@ -38,7 +38,7 @@ class PlantTest(unittest.TestCase):
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 404)
         self.assertEqual(data['success'], False)
-        self.assertEqual(data['message'], 'Resource not found!')
+        self.assertEqual(data['message'], 'Resource Not Found')
 
     def test_add_plant(self):
         response = self.client.post("/plants",
@@ -51,8 +51,6 @@ class PlantTest(unittest.TestCase):
         self.assertTrue(len(data["plants"]))
         self.assertTrue(data["new_plant_id"])
         self.assertTrue(data["current_page_number"])
-
-
 
 
 # Make the tests conveniently executable
