@@ -13,13 +13,13 @@ at the default, `http://127.0.0.1:5000/`, which is set as a proxy in frontend co
 
 ### Errors Handling 
 Rest plants returns errors as JSON objects in the following format:
-``` 
+    ``` 
     {
         'success': False,
         'error': 404,
         'message': 'Resource Not Found'
     }
-```
+    ```
 
 #### Overview:
 In general, the error codes that indicate failure of the API request are: 
@@ -30,8 +30,6 @@ might solve these error.
 
 
 #### Types of Errors:
-
-
 
 | Error Code            | Code
 | -------------         | ------------
@@ -46,7 +44,8 @@ might solve these error.
 ### API Endpoints
 Below are described the REST endpoints available.
 
-#### GET All Plants
+#### Get All Plants
+    
 - Sample Request:
     
     `curl -X GET http://127.0.0.1:5000/plants`
@@ -59,14 +58,13 @@ Below are described the REST endpoints available.
         
         `curl -X GET http://127.0.0.1:5000/plants?page=2`
 
-        
+- Response: 
 
-- Sample Response: 
-    - Notes: 
-        - Number of plants to be returned per page is 5.
-        - 404 error will be thrown in case page attribute is specified and no results match.    
+    - Returns a list of plant objects, current page, success value, and total number of books
+    - Results are paginated in groups of 5. 
+    
     ```
-    `{
+    {
       "current_page": 1,
       "number_of_plants": 12,
       "plants": [
@@ -111,18 +109,18 @@ Below are described the REST endpoints available.
     ```
 
 
-#### GET Plant by ID
+#### Get Plant by ID
+
 - Sample Request:
     
     `curl -X GET http://127.0.0.1:5000/plants/{number}`
     
     `curl -X GET http://127.0.0.1:5000/plants/1}`
     
-        
+- Response: 
 
-- Sample Response: 
-    - Notes: 
-        - 404 error will be thrown in case no plant with the given id.    
+    - Returns a list of selected plant object, and success value.
+    
     ```
     `{
       "plant": [
@@ -139,3 +137,59 @@ Below are described the REST endpoints available.
     ```
 
 
+####  Create New Plant
+    
+- Sample Request:
+    
+    `curl -X POST http://127.0.0.1:5000/plants -H "Content-Type: application/json" -d '{"name": "Red Masla",
+     "scientific_name": "Red Masla", "is_poisonous": True, "primary_color": "Red"}'`        
+
+- Response: 
+    - Returns a list of plant objects, success value, new_plant_id, current_page_number, number_of_plants, and 
+        success value.
+    
+    ```
+    {
+      "current_page_number": 1,
+      "new_plant_id": 28,
+      "number_of_plants": 12,
+      "plants": [
+        {
+          "id": 1,
+          "is_poisonous": true,
+          "name": "Snake Plant",
+          "primary_color": "Red",
+          "scientific_name": "NA"
+        },
+        {
+          "id": 2,
+          "is_poisonous": false,
+          "name": "Qat",
+          "primary_color": "Green",
+          "scientific_name": "Quaking Aspen Trees"
+        },
+        {
+          "id": 3,
+          "is_poisonous": true,
+          "name": "Rcp",
+          "primary_color": "Red",
+          "scientific_name": "Red Charm Peony."
+        },
+        {
+          "id": 4,
+          "is_poisonous": false,
+          "name": "NA",
+          "primary_color": "red",
+          "scientific_name": "Red Hot Poker Plant"
+        },
+        {
+          "id": 5,
+          "is_poisonous": true,
+          "name": "Salvia",
+          "primary_color": "Red",
+          "scientific_name": "Red Salvia"
+        }
+      ],
+      "success": true
+    }
+    ```
