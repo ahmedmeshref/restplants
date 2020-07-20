@@ -10,9 +10,10 @@ Code follows [PEP8 Style Guidelines]("https://www.python.org/dev/peps/pep-0008/"
 
 ### Installation 
 
-- Install python 3 using pip. Follow this [installation guide]("https://realpython.com/installing-python/") for more details.
+- Clone this repository by running `git clone 'https://github.com/ahmedmeshref/restplants.git'`. 
+- Install python 3 using pip. For more details, follow this [installation guide]("https://realpython.com/installing-python/").
 - From your terminal navigate to the project directory.
-- Install all required packages by running `pip install requirements.txt` command on your terminal.
+- Install all required packages by running `pip install requirements.txt`.
 - Create a new database using any database management system you have.
 - Navigate to `config.py` and change the following:
     - SECRET_KEY = "Enter random key for the app"
@@ -305,3 +306,6 @@ Below are described the REST endpoints available.
       "success": true
     }
     ```
+
+## Author 
+- Ahmed Meshref
