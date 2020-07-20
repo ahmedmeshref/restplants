@@ -13,6 +13,7 @@ at the default, `http://127.0.0.1:5000/`, which is set as a proxy in frontend co
 
 ### Errors Handling 
 Rest plants returns errors as JSON objects in the following format:
+    
     ```
     {
         'success': False,
@@ -22,7 +23,7 @@ Rest plants returns errors as JSON objects in the following format:
     ```
 
 
-##### Overview:
+#### Overview:
 In general, the error codes that indicate failure of the API request are: 
 - Codes in range `4xx` indicate the failure of the request. These errors can be programmatically corrected. You can get
 more information about these errors, from the API response body attributes such as message, to fix them.
@@ -30,7 +31,7 @@ more information about these errors, from the API response body attributes such 
 might solve these error.
 
 
-##### Types of Errors:
+#### Types of Errors:
 Error Code    | Description
 ------------- | -------------
 400           | Bad Request
