@@ -64,7 +64,7 @@ Below are described the REST endpoints available.
 
 - Response: 
 
-    - Returns a list of plant objects, current page, success value, and total number of books
+    - Returns json object with a list of plant objects, current page, success value, and total number of books
     - Results are paginated in groups of 5. 
     
     ```
@@ -123,7 +123,7 @@ Below are described the REST endpoints available.
     
 - Response: 
 
-    - Returns a list of selected plant object, and success value.
+    - Returns json object with a list of selected plant object, and success value.
     
     ```
     {
@@ -145,18 +145,92 @@ Below are described the REST endpoints available.
     
 - Sample Request:
     
-    `curl -X POST http://127.0.0.1:5000/plants -H "Content-Type: application/json" -d '{"name": "Red Masla",
-     "scientific_name": "Red Masla", "is_poisonous": True, "primary_color": "Red"}'`        
+    `curl -X POST http://127.0.0.1:5000/plants -H "Content-Type: application/json" -d '{"name": "Red Masla", "scientific_name": "Red Masla", "is_poisonous": True, "primary_color": "Red"}'`        
 
 - Response: 
-    - Returns a list of plant objects, success value, new_plant_id, current_page_number, number_of_plants, and 
-        success value.
+    - Returns json object with a list of plant objects, success value, new_plant_id, current_page_number, and number_of_plants.
     
     ```
     {
       "current_page_number": 1,
       "new_plant_id": 28,
       "number_of_plants": 12,
+      "plants": [
+        {
+          "id": 1,
+          "is_poisonous": true,
+          "name": "Snake Plant",
+          "primary_color": "Red",
+          "scientific_name": "NA"
+        },
+        {
+          "id": 2,
+          "is_poisonous": false,
+          "name": "Qat",
+          "primary_color": "Green",
+          "scientific_name": "Quaking Aspen Trees"
+        },
+        {
+          "id": 3,
+          "is_poisonous": true,
+          "name": "Rcp",
+          "primary_color": "Red",
+          "scientific_name": "Red Charm Peony."
+        },
+        {
+          "id": 4,
+          "is_poisonous": false,
+          "name": "NA",
+          "primary_color": "red",
+          "scientific_name": "Red Hot Poker Plant"
+        },
+        {
+          "id": 5,
+          "is_poisonous": true,
+          "name": "Salvia",
+          "primary_color": "Red",
+          "scientific_name": "Red Salvia"
+        }
+      ],
+      "success": true
+    }
+    ```
+    
+    
+####  Update Existing Plant
+    
+- Sample Request:
+
+    `curl -X PATCH http://127.0.0.1:5000/plants/{id} -H "Content-Type: application/json" -d '{attribute: value, attribute: value, ...}'`      
+    
+    `curl -X PATCH http://127.0.0.1:5000/plants/1 -H "Content-Type: application/json" -d '{"primary_color": "Green"}'`        
+
+- Response: 
+    - Returns a json file with success value, and id of updated plant.
+    
+    ```
+    {
+      "id": 1,
+      "success": true
+    }
+    ```
+    
+####  Delete Existing Plant
+    
+- Sample Request:
+
+    `curl -X DELETE http://127.0.0.1:5000/plants/{id}`   
+   
+    `curl -X DELETE http://127.0.0.1:5000/plants/1`        
+
+- Response: 
+    - Returns json object with a list of remaining plant objects, success value, delete_plant_id, current_page_number, and number_of_plants.
+    
+    ```
+    {
+      "current_page_number": 1,
+      "deleted_plant_id": 9,
+      "number_of_plants": 11,
       "plants": [
         {
           "id": 1,
