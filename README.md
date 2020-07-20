@@ -28,7 +28,8 @@ Code follows [PEP8 Style Guidelines]("https://www.python.org/dev/peps/pep-0008/"
 ### Run Application 
 
 To run the application, run the following command `python wsgi.py` or `python3 wsgi.py` on the main project directory.
-  
+
+You app will be running at `http://127.0.0.1:5000/`
     
 ### Test
 
