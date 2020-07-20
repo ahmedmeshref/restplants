@@ -206,7 +206,7 @@ Below are described the REST endpoints available.
     `curl -X PATCH http://127.0.0.1:5000/plants/1 -H "Content-Type: application/json" -d '{"primary_color": "Green"}'`        
 
 - Response: 
-    - Returns a json file with success value, and id of updated plant.
+    - Returns a json object with success value, and id of updated plant.
     
     ```
     {
