@@ -1,8 +1,42 @@
 # REST plant
 **Version 1.0.0**
 
-A RESTful API which serves data about plants.
+A RESTful API which serves data about plants. Using Rest Plant you can get information about 
+hundred of plants, add a new plant, correct any plant information, delete existing plant.
 
+Code follows [PEP8 Style Guidelines]("https://www.python.org/dev/peps/pep-0008/")
+
+## Getting Started 
+
+### Installation 
+
+- Install python 3 using pip. Follow this [installation guide]("https://realpython.com/installing-python/") for more details.
+- From your terminal navigate to the project directory.
+- Install all required packages by running `pip install requirements.txt` command on your terminal.
+- Create a new database using any database management system you have.
+- Navigate to `config.py` and change the following:
+    - SECRET_KEY = "Enter random key for the app"
+    - SQLALCHEMY_DATABASE_URI = "dialect+driver://username:password@host:port/database"
+    Follow for more information visit [Flask Configuration]("https://flask-sqlalchemy.palletsprojects.com/en/2.x/config/").
+- To create a new database migration, run the following on the terminal: 
+    - `flask db init`
+    - `flask db migrate -m "Initial migration."`
+    - `flask db upgrade`
+    For more information, head to [Flask-Migration Docs]("https://flask-migrate.readthedocs.io/en/latest/")
+
+### Run Application 
+
+To run the application, run the following command `python wsgi.py` or `python3 wsgi.py` on the main project directory.
+  
+    
+### Test
+
+- In order to test the application:
+    - Navigate to test folder by running `cd flaskr/test`. 
+    - Run test_main.py file.
+
+
+## ِِAPI Reference 
 
 ### Getting Started 
 
