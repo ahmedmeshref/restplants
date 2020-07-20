@@ -23,7 +23,9 @@ class PlantTest(unittest.TestCase):
     def test_get_home(self):
         """Test status code of get plant"""
         response = self.client.get("/")
+        data = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(data["success"], True)
 
     def test_get_plants(self):
         response = self.client.get("/plants")
@@ -78,14 +80,11 @@ class PlantTest(unittest.TestCase):
             response = self.client.patch(f"/plants/{id}", json={'primary_color': 'Red'})
             data = json.loads(response.data)
 
-            get_plant = self.client.get(f"/plants/{id}")
-            updated_plant_data = json.loads(get_plant.data)
-
+            updated_book = db.session.query(Plant).get(id)
             self.assertEqual(response.status_code, 200)
-            self.assertEqual(get_plant.status_code, 200)
             self.assertEqual(data["success"], True)
             self.assertEqual(data["id"], id)
-            self.assertEqual(updated_plant_data['plant']['primary_color'], 'Red')
+            self.assertEqual(updated_book.primary_color, 'Red')
 
     def test_400_update_plant_with_empty_body(self):
         existing_plant = db.session.query(Plant).first()
@@ -125,6 +124,7 @@ class PlantTest(unittest.TestCase):
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['success'], True)
+        # if results
         if data:
             self.assertTrue(data['no_plants'])
             self.assertTrue(data['current_page'])

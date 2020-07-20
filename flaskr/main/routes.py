@@ -6,7 +6,7 @@ from .utils import *
 main = Blueprint('main', __name__)
 
 # enable cors on routes that matches */api/*. They will be accessed from all origins with two methods
-CORS(main, resources={r"/api/*": {"origins": "*"}})
+CORS(main, resources={r"/plants/*": {"origins": "*"}})
 
 
 # CORS Headers
@@ -21,7 +21,7 @@ def after_request(response):
 # @cross_origin(allow_headers=['Content-Type'])
 @main.route("/")
 def home():
-    return jsonify({"message": "Hello world"})
+    return jsonify({"success": True})
 
 
 # get all plants
