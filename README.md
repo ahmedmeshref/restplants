@@ -25,7 +25,7 @@ Code follows [PEP8 Style Guidelines]("https://www.python.org/dev/peps/pep-0008/"
     - `flask db upgrade`
     For more information, head to [Flask-Migration Docs]("https://flask-migrate.readthedocs.io/en/latest/")
 
-### Run Application 
+### Run 
 
 To run the application, run the following command `python wsgi.py` or `python3 wsgi.py` on the main project directory.
 
