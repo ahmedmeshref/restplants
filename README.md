@@ -13,15 +13,13 @@ at the default, `http://127.0.0.1:5000/`, which is set as a proxy in frontend co
 
 ### Errors Handling 
 Rest plants returns errors as JSON objects in the following format:
-    
-    ```
+``` 
     {
         'success': False,
         'error': 404,
         'message': 'Resource Not Found'
     }
-    ```
-
+```
 
 #### Overview:
 In general, the error codes that indicate failure of the API request are: 
@@ -32,13 +30,17 @@ might solve these error.
 
 
 #### Types of Errors:
-Error Code    | Description
-------------- | -------------
-400           | Bad Request
-404           | Resource Not Found
-405           | Method Not Allowed
-422           | Not Processable
-500           | Internal Server Error
+
+
+
+| Error Code            | Code
+| -------------         | ------------
+| Bad Request           | 400 
+| Resource Not Found    | 404 
+| Method Not Allowed    | 405 
+| Not Processable       | 422 
+| Internal Server Error | 500 
+
 
 
 ### API Endpoints
@@ -62,46 +64,74 @@ Below are described the REST endpoints available.
 - Sample Response: 
     - Notes: 
         - Number of plants to be returned per page is 5.
-        - 404 error will be thrown in case the specified page attribute has no results.    
+        - 404 error will be thrown in case page attribute is specified and no results match.    
     ```
     `{
       "current_page": 1,
       "number_of_plants": 12,
       "plants": [
         {
-          "id": 9,
-          "is_poisonous": true,
-          "name": "Not Working",
-          "primary_color": "Red",
-          "scientific_name": "NAM"
-        },
-        {
-          "id": 11,
-          "is_poisonous": true,
-          "name": "Not g",
-          "primary_color": "Red",
-          "scientific_name": "NA"
-        },
-        {
-          "id": 15,
-          "is_poisonous": true,
-          "name": "ahmedm",
-          "primary_color": "Red",
-          "scientific_name": "meshref"
-        },
-        {
-          "id": 16,
-          "is_poisonous": true,
-          "name": "NA",
-          "primary_color": "Red",
-          "scientific_name": "NA"
-        },
-        {
-          "id": 17,
+          "id": 1,
           "is_poisonous": true,
           "name": "Snake Plant",
           "primary_color": "Red",
-          "scientific_name": "Snake"
+          "scientific_name": "NA"
+        },
+        {
+          "id": 2,
+          "is_poisonous": false,
+          "name": "Qat",
+          "primary_color": "Green",
+          "scientific_name": "Quaking Aspen Trees"
+        },
+        {
+          "id": 3,
+          "is_poisonous": true,
+          "name": "Rcp",
+          "primary_color": "Red",
+          "scientific_name": "Red Charm Peony."
+        },
+        {
+          "id": 4,
+          "is_poisonous": false,
+          "name": "NA",
+          "primary_color": "red",
+          "scientific_name": "Red Hot Poker Plant"
+        },
+        {
+          "id": 5,
+          "is_poisonous": true,
+          "name": "Salvia",
+          "primary_color": "Red",
+          "scientific_name": "Red Salvia"
+        }
+      ],
+      "success": true
+    }
+    ```
+
+
+#### GET Plant by ID
+- Sample Request:
+    
+    `curl -X GET http://127.0.0.1:5000/plants/{number}`
+    
+    `curl -X GET http://127.0.0.1:5000/plants/1}`
+    
+        
+
+- Sample Response: 
+    - Notes: 
+        - 404 error will be thrown in case no plant with the given id.    
+    ```
+    `{
+      "plant": [
+        {
+          "id": 1,
+          "is_poisonous": true,
+          "name": "Snake Plant",
+          "primary_color": "Red",
+          "scientific_name": "NA"
         }
       ],
       "success": true

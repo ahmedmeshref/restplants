@@ -18,6 +18,8 @@ def set_attributes(ins, msg):
     if not msg:
         return abort(400)
     for key, val in msg.items():
+        if type(val) == str:
+            val.title()
         setattr(ins, key, val or 'not_specified')
     return True
 
