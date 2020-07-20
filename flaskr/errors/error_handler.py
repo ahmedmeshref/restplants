@@ -18,7 +18,7 @@ def not_allowed(error):
     return jsonify({
         'success': False,
         'error': 405,
-        'message': "Not Allowed"
+        'message': "Method Not Allowed"
     }), 405
 
 
