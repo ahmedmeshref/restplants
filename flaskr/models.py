@@ -47,3 +47,11 @@ class Plant(db.Model):
             'is_poisonous': self.is_poisonous,
             'primary_color': self.primary_color
         }
+
+    @staticmethod
+    def get_plant_or_404(plant_id):
+        return db.session.query(Plant).get_or_404(plant_id)
+
+    @staticmethod
+    def gey_plants_by_name(name):
+        return db.session.query(Plant).filter(Plant.name.ilike(f'%{name}%')).all()

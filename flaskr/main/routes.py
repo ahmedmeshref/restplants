@@ -50,7 +50,7 @@ def get_plants():
 
 @main.route("/plants/<int:plant_id>")
 def get_specific_plant(plant_id):
-    plant = get_plant_or_404(plant_id)
+    plant = Plant.get_plant_or_404(plant_id)
 
     return jsonify({
         'success': True,
@@ -88,7 +88,7 @@ def create_plant():
 
 @main.route("/plants/<int:plant_id>", methods=["PATCH"])
 def update_plant(plant_id):
-    plant = get_plant_or_404(plant_id)
+    plant = Plant.get_plant_or_404(plant_id)
     error = False
     body = request.get_json()
     set_attributes(plant, body)
@@ -111,7 +111,7 @@ def update_plant(plant_id):
 
 @main.route("/plants/<int:plant_id>", methods=["DELETE"])
 def delete_plant(plant_id):
-    plant = get_plant_or_404(plant_id)
+    plant = Plant.get_plant_or_404(plant_id)
     error = False
 
     try:
@@ -133,4 +133,28 @@ def delete_plant(plant_id):
             'plants': remaining_plants,
             'current_page': current_page,
             'number_of_plants': total_plants
+        })
+
+
+@main.route("/plants/search/<string:name>")
+def search_plant(name):
+    error = False
+    try:
+        plants = Plant.gey_plants_by_name(name)
+        no_plants = len(plants)
+        formatted_plants, curr_page = pagination(request, plants)
+    except Exception:
+        error = True
+        db.session.rollback()
+    finally:
+        db.session.close()
+
+    if error:
+        abort(500)
+    else:
+        return jsonify({
+            'success': True,
+            'plants': formatted_plants,
+            'no_plants': no_plants,
+            'current_page': curr_page
         })

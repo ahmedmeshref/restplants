@@ -3,6 +3,7 @@ from flask import abort
 
 plants_per_page = 5
 
+
 def pagination(request, selection):
     # page is part of the get request to specific the pagination page
     page = request.args.get('page', 1, type=int)
@@ -39,15 +40,9 @@ def create_new_plant(body):
     return new_plant
 
 
-def get_plant_or_404(plant_id):
-    return db.session.query(Plant).get_or_404(plant_id)
-
-
 def plants_info(request):
     # get remaining plants
     remaining_plants = db.session.query(Plant).all()
     total_plants = len(remaining_plants)
     formatted_plants, current_page = pagination(request, remaining_plants)
     return [formatted_plants, current_page, total_plants]
-
-

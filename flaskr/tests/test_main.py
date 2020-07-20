@@ -120,6 +120,27 @@ class PlantTest(unittest.TestCase):
         self.assertEqual(data["success"], False)
         self.assertEqual(data["message"], 'Resource Not Found')
 
+    def test_search_resource_by_name(self):
+        response = self.client.get("/plants/search/ahmed")
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data['success'], True)
+        if data:
+            self.assertTrue(data['no_plants'])
+            self.assertTrue(data['current_page'])
+            self.assertTrue(len(data['plants']))
+        else:
+            self.assertEqual(data['no_plants'], 0)
+            self.assertEqual(data['current_page'], 1)
+            self.assertEqual(data['plants'], [])
+
+    def test_404_search_without_name(self):
+        response = self.client.get("/plants/search/")
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(data['success'], False)
+        self.assertEqual(data['message'], 'Resource Not Found')
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
