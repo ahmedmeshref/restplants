@@ -16,13 +16,12 @@ at the default, `http://127.0.0.1:5000/`, which is set as a proxy in frontend co
 
 Rest plants returns errors as JSON objects in the following format:
     
-    ``` 
     {
         'success': False,
         'error': 404,
         'message': 'Resource Not Found'
     }
-    ```
+
 
 #### Overview:
 
@@ -127,7 +126,7 @@ Below are described the REST endpoints available.
     - Returns a list of selected plant object, and success value.
     
     ```
-    `{
+    {
       "plant": [
         {
           "id": 1,
